@@ -1,4 +1,4 @@
-package com.glueck.harish.connect4;
+package com.squad.cccreview.test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

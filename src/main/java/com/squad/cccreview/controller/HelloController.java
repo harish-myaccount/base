@@ -1,4 +1,4 @@
-package com.glueck.harish.connect4;
+package com.squad.cccreview.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

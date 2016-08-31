@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,9 @@ import com.squad.cccreview.model.Review;
 
 import lombok.extern.log4j.Log4j;
 
-@RestController("/review")
+@RestController
 @Log4j
+@RequestMapping("/review")
 public class ReviewController {
 	
 	public static final String ROOT = "target";

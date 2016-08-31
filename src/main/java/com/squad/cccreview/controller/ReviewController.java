@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,8 +65,8 @@ public class ReviewController {
 		return repo.findByBillIdIsNull();
 	}
 	
-	@GetMapping("/")
-	public List<Review> search(@RequestParam("search") String searchterm){
+	@GetMapping("/search/{term}")
+	public List<Review> search(@PathParam("term") String searchterm){
 		return repo.findByRegex(searchterm);
 	}
 

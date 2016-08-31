@@ -3,9 +3,11 @@ package com.squad.cccreview.controller;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +54,11 @@ public class ReviewController {
 		} else {
 		}
 		return response;
+	}
+	
+	@GetMapping("/review/validate")
+	public List<Review> getInvoices(){
+		return repo.findByBillIdIsNull();
 	}
 
 }

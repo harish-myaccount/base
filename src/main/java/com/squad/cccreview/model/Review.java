@@ -16,6 +16,9 @@ public class Review {
 		this.location = location;
 	}
 
+	public Review() {
+	}
+
 	@Id
 	String id;
 

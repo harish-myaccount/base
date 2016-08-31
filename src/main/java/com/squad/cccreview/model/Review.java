@@ -9,11 +9,9 @@ import lombok.Data;
 @Document
 public class Review {
 
-	public Review(String writeup, String company, String location, double rating) {
-		this.company = company;
+	public Review(String writeup, double rating) {
 		this.writeup = writeup;
 		this.rating = rating;
-		this.location = location;
 	}
 
 	public Review() {

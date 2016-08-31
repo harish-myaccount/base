@@ -36,13 +36,13 @@ public class ReviewController {
 
 	@PostMapping("/review")
 	public @ResponseBody BaseResponse addReview(@RequestParam("file") MultipartFile file,
-			@RequestParam("review") String review,@RequestParam("company") String company,@RequestParam("location") String location,@RequestParam("rating") Double rating) {
+			@RequestParam("review") String review,@RequestParam("rating") Double rating) {
 		BaseResponse response = new BaseResponse(false, "");
 		if (!file.isEmpty()) {
 			try {
 				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
 				Map clouinaryResponse = cloudinary.uploader().upload(Paths.get(ROOT, file.getOriginalFilename()).toString(), ObjectUtils.emptyMap());
-				Review reviewObj = new Review(review, company,location, rating);
+				Review reviewObj = new Review(review,  rating);
 				reviewObj.setInvoiceImageUrl((String) clouinaryResponse.get("url"));
 				repo.insert(reviewObj);
 				response.setSuccess(true);

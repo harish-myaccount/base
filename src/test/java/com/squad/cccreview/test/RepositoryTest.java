@@ -26,7 +26,7 @@ public class RepositoryTest {
 
 	@Test
 	public void addAndDeleteTest() {
-		Review testreview = new Review("this is test review", "test company", "nowhere", 3.5);
+		Review testreview = new Review("this is test review", 3.5);
 		testreview.setInvoiceImageUrl("someurl");
 		repo.insert(testreview);
 		assertThat(repo.count()).isEqualTo(1);

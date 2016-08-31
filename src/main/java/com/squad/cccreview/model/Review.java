@@ -9,10 +9,11 @@ import lombok.Data;
 @Document
 public class Review {
 
-	public Review(String writeup, String company, double rating) {
+	public Review(String writeup, String company, String location, double rating) {
 		this.company = company;
 		this.writeup = writeup;
 		this.rating = rating;
+		this.location = location;
 	}
 
 	@Id
@@ -21,6 +22,8 @@ public class Review {
 	String writeup;
 	Double rating;
 	String company;
+	String location;
 	String billId;
+	String invoiceImageUrl;
 
 }

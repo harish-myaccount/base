@@ -11,5 +11,8 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
 
 	@Query(fields = "{ 'invoiceImageUrl' : 1}")
 	List<Review> findByBillIdIsNull();
+	
+	@Query(value = "{ $or: [{'writeup': {$regex : ?0, $options: 'i'}},{'company': {$regex : ?0, $options: 'i'}}]}")
+	List<Review> findByRegex(String regexString);
 
 }

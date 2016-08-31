@@ -22,7 +22,7 @@ import com.squad.cccreview.model.Review;
 
 import lombok.extern.log4j.Log4j;
 
-@RestController
+@RestController("/review")
 @Log4j
 public class ReviewController {
 	
@@ -34,7 +34,7 @@ public class ReviewController {
 	@Autowired
 	private ReviewRepository repo;
 
-	@PostMapping("/review")
+	@PostMapping("/")
 	public @ResponseBody BaseResponse addReview(@RequestParam("file") MultipartFile file,
 			@RequestParam("review") String review,@RequestParam("rating") Double rating) {
 		BaseResponse response = new BaseResponse(false, "");
@@ -56,9 +56,14 @@ public class ReviewController {
 		return response;
 	}
 	
-	@GetMapping("/review/validate")
+	@GetMapping("/validate")
 	public List<Review> getInvoices(){
 		return repo.findByBillIdIsNull();
+	}
+	
+	@GetMapping("/")
+	public List<Review> search(@RequestParam("search") String searchterm){
+		return repo.findByRegex(searchterm);
 	}
 
 }

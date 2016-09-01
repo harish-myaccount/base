@@ -13,6 +13,6 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
 	List<Review> findByBillIdIsNull();
 	
 	@Query(value = "{ $or: [{'writeup': {$regex : ?0, $options: 'i'}},{'company': {$regex : ?0, $options: 'i'}}]}")
-	List<Review> findByRegex(String regexString);
+	List<Review> findByBillIdNotNullAndRegex(String regexString);
 
 }

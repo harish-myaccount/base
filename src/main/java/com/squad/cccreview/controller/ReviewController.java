@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,28 +32,31 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/review")
 public class ReviewController {
-	
+
 	public static final String ROOT = "target";
-	
+
 	@Autowired
 	private Cloudinary cloudinary;
-	
+
 	@Autowired
 	private ReviewRepository repo;
 
 	@PostMapping("/")
 	public @ResponseBody BaseResponse addReview(@RequestParam("file") MultipartFile file,
-			@RequestParam("review") String review,@RequestParam("rating") Double rating) {
+			@RequestParam("review") String review, @RequestParam("rating") Double rating) {
 		BaseResponse response = new BaseResponse(false, "");
 		if (!file.isEmpty()) {
 			try {
 				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
-				Map clouinaryResponse = cloudinary.uploader().upload(Paths.get(ROOT, file.getOriginalFilename()).toString(), ObjectUtils.emptyMap());
-				Review reviewObj = new Review(review,  rating);
+				Map clouinaryResponse = cloudinary.uploader()
+						.upload(Paths.get(ROOT, file.getOriginalFilename()).toString(), ObjectUtils.emptyMap());
+				Review reviewObj = new Review(review, rating);
+				reviewObj.setBillId(null);
 				reviewObj.setInvoiceImageUrl((String) clouinaryResponse.get("url"));
 				repo.insert(reviewObj);
 				response.setSuccess(true);
 				response.setMessage("Your review is saved.If the image is genuine, people will read your review");
+				Files.deleteIfExists(Paths.get(ROOT, file.getOriginalFilename()));
 			} catch (IOException | RuntimeException e) {
 				log.error(e);
 				response.setMessage("some thing went wrong");
@@ -61,14 +65,33 @@ public class ReviewController {
 		}
 		return response;
 	}
-	
+
 	@GetMapping("/validate")
-	public List<Review> getInvoices(){
+	public List<Review> getInvoices() {
 		return repo.findByBillIdIsNull();
 	}
-	
+
+	@PostMapping("/validate")
+	public @ResponseBody BaseResponse updateReview(
+			@RequestParam("reviewId") String review,@RequestParam("company") String company,@RequestParam("billId") String billId) {
+		BaseResponse response = new BaseResponse(false, "");
+		Review reviewObj = repo.findOne(review);
+		if(StringUtils.isEmpty(billId)){
+		repo.delete(review);	
+		response.setSuccess(true);
+		response.setMessage("Review deleted");
+		}else{
+		reviewObj.setBillId(billId);
+		reviewObj.setCompany(company);
+		repo.save(reviewObj);
+		response.setMessage("Review approved");
+		response.setSuccess(true);
+		}
+		return response;
+	}
+
 	@RequestMapping(value = "/search/{term}", method = RequestMethod.GET)
-	public List<Review> search(@PathVariable String term){
+	public List<Review> search(@PathVariable String term) {
 		return repo.findByBillIdNotNullAndRegex(term);
 	}
 

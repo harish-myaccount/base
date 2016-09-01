@@ -47,24 +47,24 @@
                      </td>
 					 <td>
 						<div class="input-group">
-							<span class="input-group-addon" id="company_{{:id}}">Company</span> <input
-								type="text" class="form-control" style="z-index:0;" placeholder="company"
+							<span class="input-group-addon" >Company</span> <input
+								type="text" class="form-control" id="company_{{:id}}" style="z-index:0;" placeholder="company"
 								aria-describedby="basic-addon1">
 						</div> 
 						<br/>
 						<div class="input-group">
 						<span
-								class="input-group-addon" id="billId_{{:id}}">Bill ID</span>
-							<input type="text" class="form-control"
+								class="input-group-addon" >Bill ID</span>
+							<input type="text" class="form-control" id="billId_{{:id}}"
 								placeholder="Bill Id" style="z-index:0;"
 								aria-describedby="basic-addon2"> 
 						</div>
 					</td>
 					<td><div>
-							<button class="btn btn-default" onClick=submit({{:id}})>
+							<button class="btn btn-default" onClick=submit('{{:id}}')>
 								<img src="images/download.png" width="40" height="40" />
 							</button>
-							<button class="btn btn-default" onClick=reject({{:id}})>
+							<button class="btn btn-default" onClick=reject('{{:id}}')>
 								<img src="images/redcross.png" width="40" height="40" />
 							</button>
 						</div></td>

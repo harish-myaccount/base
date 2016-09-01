@@ -37,8 +37,8 @@
 	</div>
 
 	<script type="text/x-jsrender" id="tablerow">
-<tr class="bg-success">
-					<td ><img class="image" id="myImg+{{:id}}" src="{{:invoiceImageUrl}}" alt="bill" width="130" height="80">
+<tr class="bg-success" style=" border-bottom: 5em solid white">
+					<td ><img class="image" id="myImg_{{:id}}" src="{{:invoiceImageUrl}}" alt="bill" width="130" height="80">
 		             <div id="myModal" class="modal">
                       <span class="close">×</span>
                        <img class="modal-content" id="img01">
@@ -47,24 +47,24 @@
                      </td>
 					 <td>
 						<div class="input-group">
-							<span class="input-group-addon" id="company">Company</span> <input
-								type="text" class="form-control" placeholder="company"
+							<span class="input-group-addon" id="company_{{:id}}">Company</span> <input
+								type="text" class="form-control" style="z-index:0;" placeholder="company"
 								aria-describedby="basic-addon1">
 						</div> 
 						<br/>
 						<div class="input-group">
 						<span
-								class="input-group-addon" id="billId">Bill ID</span>
+								class="input-group-addon" id="billId_{{:id}}">Bill ID</span>
 							<input type="text" class="form-control"
-								placeholder="Bill Id"
+								placeholder="Bill Id" style="z-index:0;"
 								aria-describedby="basic-addon2"> 
 						</div>
 					</td>
 					<td><div>
-							<button class="btn btn-default">
+							<button class="btn btn-default" onClick=submit({{:id}})>
 								<img src="images/download.png" width="40" height="40" />
 							</button>
-							<button class="btn btn-default">
+							<button class="btn btn-default" onClick=reject({{:id}})>
 								<img src="images/redcross.png" width="40" height="40" />
 							</button>
 						</div></td>

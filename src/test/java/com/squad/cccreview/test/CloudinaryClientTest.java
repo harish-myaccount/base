@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+import ch.qos.logback.classic.Logger;
+import com.github.vbauer.herald.annotation.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,15 @@ public class CloudinaryClientTest {
 
 	@Autowired
 	private Cloudinary client;
+
+	@Log
+	private Logger logger;
+
 	
 	@Test
 	public void test() {
+		logger.debug("Logging should work here");
+
 		assertNotNull(client);
 		try {
 			Map response = client.uploader().upload("src/test/resources/test.jpg", ObjectUtils.emptyMap());
